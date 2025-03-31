@@ -1,4 +1,5 @@
 import Homepage from "@/components/Homepage";
+import SearchIcon from "@/components/SearchIcon";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 
@@ -8,7 +9,9 @@ export default function Home() {
       <Sidebar/>
       <div className="text-black grid grid-cols-1 md:grid-cols-2">
          {/* Business List */}
-         <div>Business List</div>
+         <div>
+          <SearchIcon/>
+         </div>
          {/* Gpogle Map */}
          <div> Gpogle Map</div>
       </div>
