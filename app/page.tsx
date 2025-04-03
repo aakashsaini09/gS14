@@ -1,3 +1,4 @@
+import BusinessList from "@/components/BusinessList";
 import CategoryList from "@/components/CategoryList";
 import Homepage from "@/components/Homepage";
 import SearchIcon from "@/components/SearchIcon";
@@ -13,6 +14,7 @@ export default function Home() {
          <div>
           <SearchIcon/>
           <CategoryList/>
+          <BusinessList/>
          </div>
          {/* Gpogle Map */}
          <div> Gpogle Map</div>
