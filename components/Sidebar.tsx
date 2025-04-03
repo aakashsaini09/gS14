@@ -25,8 +25,8 @@ const Sidebar = () => {
         <img src="./logo.png" width={50} height={50} alt="not found" className='gap-4 flex items-center justify-center py-4' />
             {data.map((item:dataType) => {
                 return (
-                    <div id={item.id} className='hover:bg-gray-500 rounded-sm p-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                    <div key={item.id} className='hover:bg-gray-500 rounded-sm p-2'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"  className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d={item.img} />
                             </svg>
 
