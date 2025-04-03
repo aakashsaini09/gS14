@@ -1,3 +1,4 @@
+import CategoryList from "@/components/CategoryList";
 import Homepage from "@/components/Homepage";
 import SearchIcon from "@/components/SearchIcon";
 import Sidebar from "@/components/Sidebar";
@@ -7,10 +8,11 @@ export default function Home() {
   return (
     <div className="flex">
       <Sidebar/>
-      <div className="text-black grid grid-cols-1 md:grid-cols-2">
+      <div className="text-black grid grid-cols-1 md:grid-cols-2 px-6 w-full mt-10">
          {/* Business List */}
          <div>
           <SearchIcon/>
+          <CategoryList/>
          </div>
          {/* Gpogle Map */}
          <div> Gpogle Map</div>

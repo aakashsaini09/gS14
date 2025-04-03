@@ -26,8 +26,8 @@ const Sidebar = () => {
             {data.map((item:dataType) => {
                 return (
                     <div id={item.id} className='hover:bg-gray-500 rounded-sm p-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d={item.img} />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d={item.img} />
                             </svg>
 
                         {/* {item.name} */}
