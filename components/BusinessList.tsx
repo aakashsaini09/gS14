@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react'
+import BusinessItem from './BusinessItem'
 
 const BusinessList = () => {
     const [Count, setCount] = useState(0)
@@ -23,6 +24,11 @@ const BusinessList = () => {
 
       </span>
       </h2>
+      <div>
+        <BusinessItem/>
+        <BusinessItem/>
+        
+      </div>
     </div>
   )
 }
