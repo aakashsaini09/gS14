@@ -1,25 +1,23 @@
 'use client'
 import BusinessList from "@/components/BusinessList";
-import CategoryList from "@/components/CategoryList";
-import Homepage from "@/components/Homepage";
+import CategoryList from "@/components/CategoryList"; 
 import SearchIcon from "@/components/SearchIcon";
 import Sidebar from "@/components/Sidebar";
-import Image from "next/image";
 import GlobleApi from '../services/GlobleApi'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [businessList, setBusinessList] = useState([])
   useEffect(() => {
-    console.log("inside useEffect")
     getNearByPlace()
   }, [])
   
   const getNearByPlace = () => {
-    console.log("inside getFunction")
+
     GlobleApi.getNearByPlaces('gas_station', '35.5827712', '-80.8484864')
     .then(resp =>{
-      console.log("inside promise")
-      console.log("response in page.tsx: ", resp)
+      // console.log("response in page.tsx: ", resp)
+      setBusinessList(resp.data.results)
     })
   }
   return (
@@ -30,7 +28,7 @@ export default function Home() {
          <div>
           <SearchIcon/>
           <CategoryList/>
-          <BusinessList/>
+          <BusinessList businessListData={businessList}/>
          </div>
          {/* Gpogle Map */}
          <div> Gpogle Map</div>
