@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import BusinessItem from './BusinessItem'
 
 const BusinessList = ({businessListData}: {businessListData:any}) => {
-  console.log(businessListData)
+  // console.log(businessListData)
     const [Count, setCount] = useState(0)
   return (
     <div>
@@ -26,8 +26,11 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
       </span>
       </h2>
       <div>
-        <BusinessItem/>
-        <BusinessItem/>
+        {businessListData.map((business: any, index: any)=> (
+          <div key={index}>
+            <BusinessItem business={business}/>
+          </div>
+        ))}
         
       </div>
     </div>
