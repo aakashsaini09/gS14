@@ -2,11 +2,14 @@ import Image from 'next/image'
 import React from 'react'
 
 const BusinessItem = ({business}: {business: any}) => {
-  console.log(business)
+  const photo_ref = business?.photos ? business?.photos[0].photo_reference : 'null'
+  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   return (
     <div className='flex gap-3 p-3 border-b-[1px] border-purple-300 mb-4 items-center'>
-      <Image src='/hotel.jpg' alt='Not found' 
+      <Image src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=${API_KEY}`} 
         width={90}
+        alt='not found'
         height={90}
         className='rounded-xl object-cover h-[100px] w-[100px]'
         />
