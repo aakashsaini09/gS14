@@ -9,7 +9,7 @@ export interface CategoryTypes {
     icon: string,
     color: string
 }
-const CategoryList = () => {
+const CategoryList = ({setSelectedCategory}: {setSelectedCategory: any}) => {
     const [Category, setCategory] = useState<CategoryTypes[]>([])
     useEffect(() => {
       setCategory(Data.CategoryList as CategoryTypes[])
@@ -20,7 +20,7 @@ const CategoryList = () => {
       <h2 className='text-[20px] mt-3 font-bold mb-3'>Select Your Fav Category</h2>
       {Category ? <div className='flex gap-6 mb-5'>
         {Category.map((item) =>(
-            <div key={item.id}>
+            <div key={item.id} onClick={()=>setSelectedCategory(item.value)}>
                 <CategoryItem category={item}/>
             </div>
         ))}

@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [businessList, setBusinessList] = useState([])
   useEffect(() => {
-    getNearByPlace()
+    getNearByPlace('gas_station')
   }, [])
   
-  const getNearByPlace = () => {
+  const getNearByPlace = (category: any) => {
 
-    GlobleApi.getNearByPlaces('gas_station', '35.5827712', '-80.8484864')
+    GlobleApi.getNearByPlaces(category, '35.5827712', '-80.8484864')
     .then(resp =>{
       // console.log("response in page.tsx: ", resp)
       setBusinessList(resp.data.results)
@@ -27,7 +27,7 @@ export default function Home() {
          {/* Business List */}
          <div>
           <SearchIcon/>
-          <CategoryList/>
+          <CategoryList setSelectedCategory={(category: any)=> getNearByPlace(category)}/>
           <BusinessList businessListData={businessList}/>
          </div>
          {/* Gpogle Map */}

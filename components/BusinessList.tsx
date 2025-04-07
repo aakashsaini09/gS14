@@ -1,10 +1,22 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BusinessItem from './BusinessItem'
+import Loading from './Loading'
 
 const BusinessList = ({businessListData}: {businessListData:any}) => {
   // console.log(businessListData)
     const [Count, setCount] = useState(0)
+    const [loader, setloader] = useState(true)
+    useEffect(() => {
+      setInterval(()=>{
+        setloader(false)
+      }, 2000)
+    }, [])
+    useEffect(() => {
+      setCount(0)
+      setloader(true)
+    }, [businessListData])
+    
   return (
     <div>
       <h2 className='text-[20px] mt-3 font-bold mb-3 flex justify-between items-center'>Top NearBy Places
@@ -25,14 +37,20 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
 
       </span>
       </h2>
-      <div>
+    {!loader ?  <div>
         {businessListData.map((business: any, index: any)=>index>=Count && index<Count+3 &&(
           <div key={index}>
             <BusinessItem business={business}/>
           </div>
         ))}
         
-      </div>
+    </div>: null}
+    {loader ? 
+    [1, 2, 3].map((item, index)=>(
+      <Loading key={index}/>
+    ))
+    :
+     null}
     </div>
   )
 }
