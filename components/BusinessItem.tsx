@@ -1,18 +1,26 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 
 const BusinessItem = ({business}: {business: any}) => {
-  const photo_ref = business?.photos ? business?.photos[0].photo_reference : 'null'
-  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const [imgSrc, setImgSrc] = useState(() => {
+    const ref = business?.photos?.[0]?.photo_reference;
+    const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    return ref
+      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=${API_KEY}`
+      : "/hotel.jpg";
+  });
+
 
   return (
     <div className='flex gap-3 p-3 border-b-[1px] border-purple-300 mb-4 items-center'>
-      <Image src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=${API_KEY}`} 
+      <Image
+        src={imgSrc}
+        onError={() => setImgSrc("/hotel.jpg")}
         width={90}
-        alt='not found'
         height={90}
-        className='rounded-xl object-cover h-[100px] w-[100px]'
-        />
+        alt="Place"
+        className="rounded-xl object-cover h-[100px] w-[100px]"
+      />
         <div>
             <h2 className='text-[20px] font-semibold '>{business.name}</h2>
             <h2 className='text-[15px] text-gray-500 '>{business.vicinity}</h2>

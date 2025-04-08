@@ -5,19 +5,21 @@ import SearchIcon from "@/components/SearchIcon";
 import Sidebar from "@/components/Sidebar";
 import GlobleApi from '../services/GlobleApi'
 import { useEffect, useState } from "react";
-
+import { UserLocationProvider } from "@/context/UserLocationContext";
 export default function Home() {
   const [businessList, setBusinessList] = useState([])
   useEffect(() => {
-    getNearByPlace('gas_station')
+    getNearByPlace('restaurant')
+    console.log("UserLocationProvider: ", UserLocationProvider)
   }, [])
   
   const getNearByPlace = (category: any) => {
 
-    GlobleApi.getNearByPlaces(category, '35.5827712', '-80.8484864')
+    GlobleApi.getNearByPlaces(category, '29.4107176', '77.0794705')
     .then(resp =>{
       // console.log("response in page.tsx: ", resp)
       setBusinessList(resp.data.results)
+
     })
   }
   return (

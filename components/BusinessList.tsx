@@ -8,9 +8,11 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
     const [Count, setCount] = useState(0)
     const [loader, setloader] = useState(true)
     useEffect(() => {
-      setInterval(()=>{
+      const timer = setTimeout(() => {
         setloader(false)
       }, 2000)
+    
+      return () => clearTimeout(timer) // cleanup
     }, [])
     useEffect(() => {
       setCount(0)
@@ -22,7 +24,7 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
       <h2 className='text-[20px] mt-3 font-bold mb-3 flex justify-between items-center'>Top NearBy Places
       <span className='flex '>
       {Count >= 0 ? (<svg xmlns="http://www.w3.org/2000/svg" 
-        onClick={()=>{setCount(Count-3)}}
+        onClick={() => setCount(Count - 3)} 
         fill="none" viewBox="0 0 24 24" strokeWidth="1.5" 
         stroke="currentColor" className="size-10 p-2 text-gray-400 hover:text-purple-500 hover:bg-purple-100 cursor-pointer rounded-lg">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
