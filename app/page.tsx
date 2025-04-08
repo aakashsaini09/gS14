@@ -4,20 +4,21 @@ import CategoryList from "@/components/CategoryList";
 import SearchIcon from "@/components/SearchIcon";
 import Sidebar from "@/components/Sidebar";
 import GlobleApi from '../services/GlobleApi'
-import { useEffect, useState } from "react";
-import { UserLocationProvider } from "@/context/UserLocationContext";
+import { useContext, useEffect, useState } from "react";
+import { UserLocationContext } from "@/context/UserLocationContext";
+import GoogleMap_ from "@/components/GoogleMap_";
 export default function Home() {
   const [businessList, setBusinessList] = useState([])
+  const { userLocation, setUserLocation} = useContext(UserLocationContext)
   useEffect(() => {
     getNearByPlace('restaurant')
-    console.log("UserLocationProvider: ", UserLocationProvider)
-  }, [])
+    console.log("Userlocation using context", userLocation)
+  }, [userLocation])
   
   const getNearByPlace = (category: any) => {
 
     GlobleApi.getNearByPlaces(category, '29.4107176', '77.0794705')
     .then(resp =>{
-      // console.log("response in page.tsx: ", resp)
       setBusinessList(resp.data.results)
 
     })
@@ -33,7 +34,9 @@ export default function Home() {
           <BusinessList businessListData={businessList}/>
          </div>
          {/* Gpogle Map */}
-         <div> Gpogle Map</div>
+         <div>
+          <GoogleMap_/>
+         </div>
       </div>
     </div>
   );
