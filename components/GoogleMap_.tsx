@@ -1,13 +1,16 @@
 'use client'
-import React from 'react'
+import React, { useContext } from 'react'
 import { GoogleMap, LoadScript } from '@react-google-maps/api'
+import { UserLocationContext } from '@/context/UserLocationContext'
+import Marker from './Marker'
 
 const GoogleMap_ = () => {
   const [map, setMap] = React.useState(null)
+  const { userLocation, setUserLocation } = useContext(UserLocationContext) as { userLocation: { lat: number; lng: number } | null, setUserLocation: (location: { lat: number; lng: number }) => void };
 
   const containerStyle = {
-    width: '400px',
-    height: '400px',
+    width: '100%',
+    height: '500px',
     borderRadius: 20
   }
 
@@ -28,15 +31,19 @@ const GoogleMap_ = () => {
 
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-      <GoogleMap
+      {userLocation ? <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
+        center={{
+          lat: userLocation?.lat ?? center.lat,
+          lng: userLocation?.lng ?? center.lng
+        }}
+        zoom={20}
         onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        {/* Add your markers or components here */}
-      </GoogleMap>
+        onUnmount={onUnmount} >
+          <>
+            <Marker userLocation={userLocation}/>
+          </>
+  </GoogleMap>: null}
     </LoadScript>
   )
 }

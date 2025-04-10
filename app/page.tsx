@@ -9,15 +9,15 @@ import { UserLocationContext } from "@/context/UserLocationContext";
 import GoogleMap_ from "@/components/GoogleMap_";
 export default function Home() {
   const [businessList, setBusinessList] = useState([])
-  const { userLocation, setUserLocation} = useContext(UserLocationContext)
+  const { userLocation, setUserLocation } = useContext(UserLocationContext) as { userLocation: { lat: number; lng: number } | null, setUserLocation: (location: { lat: number; lng: number }) => void };
   useEffect(() => {
-    getNearByPlace('restaurant')
-    console.log("Userlocation using context", userLocation)
+    if(userLocation)
+      getNearByPlace('restaurant') 
   }, [userLocation])
   
   const getNearByPlace = (category: any) => {
 
-    GlobleApi.getNearByPlaces(category, '29.4107176', '77.0794705')
+    GlobleApi.getNearByPlaces(category, userLocation?.lat, userLocation?.lng)
     .then(resp =>{
       setBusinessList(resp.data.results)
 
