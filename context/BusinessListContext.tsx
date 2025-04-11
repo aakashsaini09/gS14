@@ -1,3 +1,11 @@
-import { createContext } from 'react'
+import { createContext, Dispatch, SetStateAction } from "react";
 
-export const BusinessListContext = createContext(null);
+interface BusinessListContextType {
+  businessList: any[];
+  setBusinessList: Dispatch<SetStateAction<any[]>>;
+}
+
+export const BusinessListContext = createContext<BusinessListContextType>({
+  businessList: [],
+  setBusinessList: () => {},
+});

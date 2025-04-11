@@ -9,7 +9,7 @@ import { UserLocationContext } from "@/context/UserLocationContext";
 import GoogleMap_ from "@/components/GoogleMap_";
 import { BusinessListContext } from "@/context/BusinessListContext";
 export default function Home() {
-  const [businessList, setBusinessList] = useState([])
+  const [businessList, setBusinessList] = useState<any[]>([])
   const { userLocation, setUserLocation } = useContext(UserLocationContext) as { userLocation: { lat: number; lng: number } | null, setUserLocation: (location: { lat: number; lng: number }) => void };
   useEffect(() => {
     if(userLocation)
