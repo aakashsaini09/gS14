@@ -16,6 +16,7 @@ const Marker = ({userLocation}: {userLocation: any}) => {
       { businessList && businessList.map((buss: any, index)=>index<=5 && (
         <MarkerF 
           position={buss.geometry.location}
+          key={index}
           icon={{
             url:'/userLocation.png',
             scaledSize: new google.maps.Size(50, 50)

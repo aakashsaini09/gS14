@@ -1,12 +1,14 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import BusinessItem from './BusinessItem'
 import Loading from './Loading'
+import { SelectedBusinessContext } from '@/context/SelectedBusinessContext'
 
 const BusinessList = ({businessListData}: {businessListData:any}) => {
   // console.log(businessListData)
     const [Count, setCount] = useState(0)
     const [loader, setloader] = useState(true)
+    const {selectedBusiness, setSelectedBusiness} = useContext(SelectedBusinessContext)
     useEffect(() => {
       const timer = setTimeout(() => {
         setloader(false)
@@ -41,7 +43,7 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
       </h2>
     {!loader ?  <div>
         {businessListData.map((business: any, index: any)=>index>=Count && index<Count+3 &&(
-          <div key={index}>
+          <div key={index} className='cursor-pointer' onClick={()=>setSelectedBusiness(business)}>
             <BusinessItem business={business}/>
           </div>
         ))}

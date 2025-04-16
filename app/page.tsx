@@ -8,9 +8,11 @@ import { useContext, useEffect, useState } from "react";
 import { UserLocationContext } from "@/context/UserLocationContext";
 import GoogleMap_ from "@/components/GoogleMap_";
 import { BusinessListContext } from "@/context/BusinessListContext";
+import { BusinessType, SelectedBusinessContext } from "@/context/SelectedBusinessContext";
 export default function Home() {
   const [businessList, setBusinessList] = useState<any[]>([])
   const { userLocation, setUserLocation } = useContext(UserLocationContext) as { userLocation: { lat: number; lng: number } | null, setUserLocation: (location: { lat: number; lng: number }) => void };
+  const [selectedBusiness, setSelectedBusiness] = useState<BusinessType | null>(null)
   useEffect(() => {
     if(userLocation)
       getNearByPlace('restaurant') 
@@ -26,6 +28,7 @@ export default function Home() {
   }
   return (
     <div className="flex">
+      <SelectedBusinessContext.Provider value={{selectedBusiness, setSelectedBusiness}} >
       <BusinessListContext.Provider value={{ businessList, setBusinessList}}>
       <Sidebar/>
       <div className="text-black grid grid-cols-1 md:grid-cols-2 px-6 w-full mt-10">
@@ -41,6 +44,7 @@ export default function Home() {
          </div>
       </div>
       </BusinessListContext.Provider>
+      </SelectedBusinessContext.Provider>
     </div>
   );
 }
