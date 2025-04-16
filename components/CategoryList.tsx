@@ -11,6 +11,7 @@ export interface CategoryTypes {
 }
 const CategoryList = ({setSelectedCategory}: {setSelectedCategory: any}) => {
     const [Category, setCategory] = useState<CategoryTypes[]>([])
+    console.log("category", Category)
     useEffect(() => {
       setCategory(Data.CategoryList as CategoryTypes[])
     }, [])

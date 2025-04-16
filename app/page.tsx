@@ -18,8 +18,8 @@ export default function Home() {
       getNearByPlace('restaurant') 
   }, [userLocation])
   
-  const getNearByPlace = (category: any) => {
-
+  const getNearByPlace = (category: string) => {
+    // console.log("Category inside getNearBy Function: ", category)
     GlobleApi.getNearByPlaces(category, userLocation?.lat, userLocation?.lng)
     .then(resp =>{
       setBusinessList(resp.data.results)

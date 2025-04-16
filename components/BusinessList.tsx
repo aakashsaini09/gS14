@@ -1,62 +1,95 @@
-"use client"
-import React, { useContext, useEffect, useState } from 'react'
-import BusinessItem from './BusinessItem'
-import Loading from './Loading'
-import { SelectedBusinessContext } from '@/context/SelectedBusinessContext'
+"use client";
+
+import React, { useContext, useEffect, useState } from "react";
+import BusinessItem from "./BusinessItem";
+import Loading from "./Loading";
+import { SelectedBusinessContext } from "@/context/SelectedBusinessContext";
+import { BusinessListContext } from "@/context/BusinessListContext";
 
 const BusinessList = ({businessListData}: {businessListData:any}) => {
-  // console.log(businessListData)
-    const [Count, setCount] = useState(0)
-    const [loader, setloader] = useState(true)
-    const {selectedBusiness, setSelectedBusiness} = useContext(SelectedBusinessContext)
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setloader(false)
-      }, 2000)
-    
-      return () => clearTimeout(timer) // cleanup
-    }, [])
-    useEffect(() => {
-      setCount(0)
-      setloader(true)
-    }, [businessListData])
-    
+  const [count, setCount] = useState(0);
+  const [loader, setLoader] = useState(true);
+
+  const { businessList } = useContext(BusinessListContext);
+  const { setSelectedBusiness } = useContext(SelectedBusinessContext);
+
+  // Show loader initially for 2s
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Reset count and show loader again when business list updates
+  useEffect(() => {
+    setCount(0);
+    setLoader(true);
+    const timer = setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [businessList]);
+
   return (
     <div>
-      <h2 className='text-[20px] mt-3 font-bold mb-3 flex justify-between items-center'>Top NearBy Places
-      <span className='flex '>
-      {Count >= 0 ? (<svg xmlns="http://www.w3.org/2000/svg" 
-        onClick={() => setCount(Count - 3)} 
-        fill="none" viewBox="0 0 24 24" strokeWidth="1.5" 
-        stroke="currentColor" className="size-10 p-2 text-gray-400 hover:text-purple-500 hover:bg-purple-100 cursor-pointer rounded-lg">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-      </svg>): null}
-      <svg xmlns="http://www.w3.org/2000/svg" 
-              onClick={()=>{setCount(Count+3)}}
-        fill="none" viewBox="0 0 24 24" 
-        strokeWidth="1.5" stroke="currentColor" 
-        className="size-10 p-2 text-gray-400 hover:text-purple-500 hover:bg-purple-100 cursor-pointer rounded-lg">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-      </svg>
-
-      </span>
+      <h2 className="text-[20px] mt-3 font-bold mb-3 flex justify-between items-center">
+        Top NearBy Places
+        <span className="flex">
+          {count > 0 && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              onClick={() => setCount(count - 3)}
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="size-10 p-2 text-gray-400 hover:text-purple-500 hover:bg-purple-100 cursor-pointer rounded-lg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+              />
+            </svg>
+          )}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={() => setCount(count + 3)}
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="size-10 p-2 text-gray-400 hover:text-purple-500 hover:bg-purple-100 cursor-pointer rounded-lg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </span>
       </h2>
-    {!loader ?  <div>
-        {businessListData.map((business: any, index: any)=>index>=Count && index<Count+3 &&(
-          <div key={index} className='cursor-pointer' onClick={()=>setSelectedBusiness(business)}>
-            <BusinessItem business={business}/>
-          </div>
-        ))}
-        
-    </div>: null}
-    {loader ? 
-    [1, 2, 3].map((item, index)=>(
-      <Loading key={index}/>
-    ))
-    :
-     null}
-    </div>
-  )
-}
 
-export default BusinessList
+      {!loader ? (
+        <div>
+          {businessList
+            .slice(count, count + 3)
+            .map((business: any, index: number) => (
+              <div
+                key={index}
+                className="cursor-pointer"
+                onClick={() => setSelectedBusiness(business)}
+              >
+                <BusinessItem business={business} />
+              </div>
+            ))}
+        </div>
+      ) : (
+        [1, 2, 3].map((item, index) => <Loading key={index} />)
+      )}
+    </div>
+  );
+};
+
+export default BusinessList;
