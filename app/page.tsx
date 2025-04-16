@@ -9,6 +9,7 @@ import { UserLocationContext } from "@/context/UserLocationContext";
 import GoogleMap_ from "@/components/GoogleMap_";
 import { BusinessListContext } from "@/context/BusinessListContext";
 import { BusinessType, SelectedBusinessContext } from "@/context/SelectedBusinessContext";
+import BusinessToast from "@/components/BusinessToast";
 export default function Home() {
   const [businessList, setBusinessList] = useState<any[]>([])
   const { userLocation, setUserLocation } = useContext(UserLocationContext) as { userLocation: { lat: number; lng: number } | null, setUserLocation: (location: { lat: number; lng: number }) => void };
@@ -41,6 +42,7 @@ export default function Home() {
          {/* Gpogle Map */}
          <div>
           <GoogleMap_/>
+          <BusinessToast userLocation={userLocation}/>
          </div>
       </div>
       </BusinessListContext.Provider>
