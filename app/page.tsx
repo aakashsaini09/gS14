@@ -40,7 +40,7 @@ export default function Home() {
           <BusinessList businessListData={businessList}/>
          </div>
          {/* Gpogle Map */}
-         <div>
+         <div className="order-first md:order-last">
           <GoogleMap_/>
           <BusinessToast userLocation={userLocation}/>
          </div>

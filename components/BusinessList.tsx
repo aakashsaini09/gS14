@@ -11,7 +11,7 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
   const [loader, setLoader] = useState(true);
 
   const { businessList } = useContext(BusinessListContext);
-  const { setSelectedBusiness } = useContext(SelectedBusinessContext);
+  const {selectedBusiness, setSelectedBusiness} = useContext(SelectedBusinessContext)
 
   // Show loader initially for 2s
   useEffect(() => {
@@ -78,7 +78,7 @@ const BusinessList = ({businessListData}: {businessListData:any}) => {
             .map((business: any, index: number) => (
               <div
                 key={index}
-                className="cursor-pointer"
+                className={`cursor-pointer rounded-2xl ${selectedBusiness?.name == business.name ? 'bg-purple-100': null}`}
                 onClick={() => setSelectedBusiness(business)}
               >
                 <BusinessItem business={business} />
